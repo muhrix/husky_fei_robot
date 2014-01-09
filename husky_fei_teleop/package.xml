@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>husky_fei_teleop</name>
+  <version>0.0.2</version>
+  <description>
+    Basic node for transforming joystick messages to cmd_vel for FEI-modded Husky A200.
+  </description>
+
+  <maintainer email="muhrix@gmail.com">Murilo F. M.</maintainer>
+  <license>BSD</license>
+
+  <!-- <url type="website">http://ros.org/wiki/husky_teleop</url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>joy</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>joy</run_depend>
+
+  <export>
+  </export>
+</package>

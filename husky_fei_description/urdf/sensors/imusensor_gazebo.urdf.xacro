@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="imusensor_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="husky_fei_sim_imusensor">
+    <gazebo reference="imu_link">
+      <sensor type="imu" name="imu_sensor">
+        <always_on>true</always_on>
+        <update_rate>100.0</update_rate>
+        <imu>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise parameters from Boston Dynamics
+                 (http://gazebosim.org/wiki/Sensor_noise):
+                   rates (rad/s): mean=0, stddev=2e-4
+                   accels (m/s/s): mean=0, stddev=1.7e-2
+                   rate bias (rad/s): 5e-6 - 1e-5
+                   accel bias (m/s/s): 1e-1
+                 Experimentally, simulation provide rates with noise of
+                 about 1e-3 rad/s and accels with noise of about 1e-1 m/s/s.
+                 So we don't expect to see the noise unless number of inner iterations
+                 are increased.
+
+                 We will add bias.  In this model, bias is sampled once for rates
+                 and once for accels at startup; the sign (negative or positive)
+                 of each bias is then switched with equal probability.  Thereafter,
+                 the biases are fixed additive offsets.  We choose
+                 bias means and stddevs to produce biases close to the provided
+                 data. -->
+            <rate>
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </rate>
+            <accel>
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </accel>
+          </noise>
+        </imu>
+        <plugin name="imu_controller" filename="libgazebo_ros_imu.so">
+	  <alwaysOn>true</alwaysOn>
+          <updateRate>100.0</updateRate>
+	  <bodyName>imu_link</bodyName>
+          <topicName>imu_data</topicName>
+          <serviceName>imu_service</serviceName>
+        </plugin>
+      </sensor>
+    </gazebo>
+  </xacro:macro>
+</robot>

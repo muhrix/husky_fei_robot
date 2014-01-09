@@ -1,0 +1,32 @@
+digraph G {
+node [shape=box];
+"base_footprint" [label="base_footprint"];
+"base_footprint_front_bumper_part" [label="base_footprint_front_bumper_part"];
+"base_link" [label="base_link"];
+"back_left_wheel" [label="back_left_wheel"];
+"back_right_wheel" [label="back_right_wheel"];
+"front_left_wheel" [label="front_left_wheel"];
+"front_right_wheel" [label="front_right_wheel"];
+"base_footprint_rear_bumper_part" [label="base_footprint_rear_bumper_part"];
+"base_footprint_top_plate_part" [label="base_footprint_top_plate_part"];
+"base_footprint_user_rail_part" [label="base_footprint_user_rail_part"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_footprint" -> "base_footprint_front_bumper_joint" [label="xyz: 0.49 0 0.235925 \nrpy: 0 -0 0"]
+"base_footprint_front_bumper_joint" -> "base_footprint_front_bumper_part"
+"base_footprint" -> "base_footprint_joint" [label="xyz: 0 0 0.144925 \nrpy: 0 -0 0"]
+"base_footprint_joint" -> "base_link"
+"base_link" -> "joint_back_left_wheel" [label="xyz: -0.256 0.285475 0.0328251 \nrpy: 0 -0 0"]
+"joint_back_left_wheel" -> "back_left_wheel"
+"base_link" -> "joint_back_right_wheel" [label="xyz: -0.256 -0.285475 0.0328251 \nrpy: 0 -0 0"]
+"joint_back_right_wheel" -> "back_right_wheel"
+"base_link" -> "joint_front_left_wheel" [label="xyz: 0.256 0.285475 0.0328251 \nrpy: 0 -0 0"]
+"joint_front_left_wheel" -> "front_left_wheel"
+"base_link" -> "joint_front_right_wheel" [label="xyz: 0.256 -0.285475 0.0328251 \nrpy: 0 -0 0"]
+"joint_front_right_wheel" -> "front_right_wheel"
+"base_footprint" -> "base_footprint_rear_bumper_joint" [label="xyz: -0.48 0 0.235925 \nrpy: 0 -0 3.14"]
+"base_footprint_rear_bumper_joint" -> "base_footprint_rear_bumper_part"
+"base_footprint" -> "base_footprint_top_plate_joint" [label="xyz: 0 0 0.144925 \nrpy: 0 -0 0"]
+"base_footprint_top_plate_joint" -> "base_footprint_top_plate_part"
+"base_footprint" -> "base_footprint_user_rail_joint" [label="xyz: 0.272 0 0.389925 \nrpy: 0 -0 0"]
+"base_footprint_user_rail_joint" -> "base_footprint_user_rail_part"
+}

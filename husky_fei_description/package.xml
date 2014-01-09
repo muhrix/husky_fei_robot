@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>husky_fei_description</name>
+  <version>0.0.1</version>
+  <description>URDF description for FEI-modded Clearpath Husky A200</description>
+
+  <maintainer email="muhrix@gmail.com">Murilo F. M.</maintainer>
+  <author email="rgariepy@clearpathrobotics.com">Ryan Gariepy</author>
+  <author email="muhrix@gmail.com">Murilo F. M.</author>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>xacro</run_depend>
+
+  <export>
+  </export>
+</package>

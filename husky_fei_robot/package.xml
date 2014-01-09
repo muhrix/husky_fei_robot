@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+  <name>husky_fei_robot</name>
+  <version>0.0.1</version>
+  <description>The husky_fei_robot metapackage</description>
+
+  <maintainer email="muhrix@gmail.com">Murilo F. M.</maintainer>
+  <license>BSD</license>
+  <!-- <url type="website">http://wiki.ros.org/husky_fei</url> -->
+  <author email="muhrix@gmail.com">Murilo F. M.</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>husky_fei_description</run_depend>
+  <run_depend>husky_fei_teleop</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

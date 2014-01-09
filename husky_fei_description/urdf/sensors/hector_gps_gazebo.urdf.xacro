@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot name="gpssensor_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="husky_fei_sim_gpssensor" params="name">
+    <gazebo>
+      <plugin name="hector_gazebo_ros_${name}_controller" filename="libhector_gazebo_ros_gps.so">
+	<always_on>true</always_on>
+        <updateRate>10.0</updateRate>
+	<frameId>${name}_link</frameId>
+        <bodyName>${name}_link</bodyName>
+        <topicName>${name}_fix</topicName>
+        <velocityTopicName>${name}_fix_velocity</velocityTopicName>
+        <drift>5.0 5.0 5.0</drift>
+        <gaussianNoise>0.01 0.01 0.01</gaussianNoise>
+        <velocityDrift>0 0 0</velocityDrift>
+        <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
+      </plugin>
+    </gazebo>
+  </xacro:macro>
+</robot>

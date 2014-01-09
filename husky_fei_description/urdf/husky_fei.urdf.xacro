@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<robot name="husky_fei" xmlns:xacro="http://www.ros.org/wiki/xacro">
+       
+	<!-- Included URDF/XACRO Files -->
+    <xacro:include filename="$(find husky_fei_description)/urdf/parts/materials.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/parts/wheel.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/parts/parts.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/sensors/kinect.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/sensors/imu.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/sensors/gps.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/sensors/barometer.urdf.xacro" />
+    <xacro:include filename="$(find husky_fei_description)/urdf/sensors/sick_lms100_laser.urdf.xacro" />
+    <!-- <xacro:include filename="$(find husky_fei_description)/urdf/sensors/microstrain_3dmgx2_imu.urdf.xacro" /> -->
+    
+	<!-- PROPERTY LIST -->
+    <!--All units in m-kg-s-radians unit system -->
+    <property name="M_PI" value="3.1415926535897931" />
+
+    <!-- Main Body-base-->
+    <!-- Location of com : center of mass -->
+    <property name="base_x_com" value="-0.08748000" />
+    <property name="base_y_com" value="-0.00085000" />
+    <property name="base_z_com" value="0.09947000" />
+
+    <!-- Size of the base-->
+    <property name="base_x_size" value="0.98740000" /> 
+    <property name="base_y_size" value="0.57090000" /> 
+    <property name="base_z_size" value="0.24750000" />
+
+    <!--Weight of the base-->
+    <property name="base_mass" value="33.45489000" /> <!-- in kg-->
+
+    <!--Inertial values for the base at center of mass, aligned with coordinate system. Units are kg*m^2-->
+    <property name="base_ixx_com_cs" value="0.60216370" />
+    <property name="base_ixy_com_cs" value="-0.02364198" />
+    <property name="base_ixz_com_cs" value="-0.11972132" />
+    <property name="base_iyy_com_cs" value="1.73859574" />
+    <property name="base_iyz_com_cs" value="-0.00154437" />
+    <property name="base_izz_com_cs" value="2.02955229" />
+
+<!-- BASE-FOOTPRINT -->
+    <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin, navigation stack depends on this frame -->
+    <link name="base_footprint">
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+    </link>
+
+    <gazebo reference="base_footprint">
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <joint name="base_footprint_joint" type="fixed">
+		<origin xyz="0 0 ${wheel_x_size/2 - base_z_origin_to_wheel_origin}" rpy="0 0 0" />
+        <parent link="base_footprint"/>
+        <child link="base_link" />
+    </joint>
+
+    <!-- BASE-LINK -->
+    <!--Actual body/chassis of the robot-->
+    <link name="base_link">
+        <inertial>
+            <mass value="${base_mass}" />
+            <!--This is the pose of the inertial reference frame, relative to the link reference frame. The origin of the inertial reference frame needs to be at the center of gravity. The axes of the inertial reference frame do not need to be aligned with the principal axes of the inertia.-->
+            <origin xyz="${base_x_com} ${base_y_com} ${base_z_com}" />
+            <!--The 3x3 rotational inertia matrix. Because the rotational inertia matrix is symmetric, only 6 above-diagonal elements of this matrix are specified here, using the attributes ixx, ixy, ixz, iyy, iyz, izz.-->
+            <inertia ixx="${base_ixx_com_cs}" ixy="${base_ixy_com_cs}" ixz="${base_ixz_com_cs}"
+                iyy="${base_iyy_com_cs}" iyz="${base_iyz_com_cs}" izz="${base_izz_com_cs}" /> 
+        </inertial>
+        
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://husky_fei_description/meshes/base_link.stl" />
+            </geometry>
+            <material name="Black" />
+        </visual>
+    
+		<collision>
+			<origin xyz="0 0 ${wheel_x_size/2 - base_z_origin_to_wheel_origin - 0.02}" rpy="0 0 0 " />
+			<geometry>
+				<box size = "${base_x_size+0.02} ${base_y_size} ${base_z_size + 0.02}"/> <!--making it slightly bigger in x and z direction-->
+			</geometry>
+		</collision>     
+    </link>
+    <gazebo reference="base_link">
+        <material>Gazebo/FlatBlack</material>
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <!-- WHEEL macros -->
+	<husky_wheel fb="back" lr="left" parent="base_link" translateX="-1" translateY="1" flipY="-1"/>
+	<husky_wheel fb="back" lr="right" parent="base_link" translateX="-1" translateY="-1" flipY="-1"/>
+	<husky_wheel fb="front" lr="left" parent="base_link" translateX="1" translateY="1" flipY="-1"/>
+	<husky_wheel fb="front" lr="right" parent="base_link" translateX="1" translateY="-1" flipY="-1"/>
+
+    <!-- DECORATIONS -->
+    <!-- Top Plate -->
+    <husky_part parent="base_footprint" name="top_plate" mesh="top_plate" 
+          colour="Yellow"
+          translateX="0.0" translateY="0.0" translateZ="${wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" use_dae="false" />
+    <gazebo reference="base_footprint_top_plate_part">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
+    <!-- User Rail -->
+    <husky_part parent="base_footprint" name="user_rail" mesh="user_rail"
+          colour="DarkGrey"
+          translateX="0.272" translateY="0.0" translateZ="${0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" use_dae="false" />
+    <gazebo reference="base_footprint_user_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+        
+    <!-- FEI-modded horizontal-front rail -->
+    <husky_part parent="base_footprint" name="fei_hf_rail" mesh="tslot_400x20x20"
+          colour="DarkGrey"
+          translateX="0.21" translateY="0.0" translateZ="${0.245 - 0.009 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" use_dae="true"/>
+    <gazebo reference="base_footprint_fei_hf_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- FEI-modded horizontal-back rail -->
+    <husky_part parent="base_footprint" name="fei_hb_rail" mesh="tslot_400x20x20"
+          colour="DarkGrey"
+          translateX="-0.15" translateY="0.0" translateZ="${0.245 - 0.009 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" use_dae="true"/>
+    <gazebo reference="base_footprint_fei_hb_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- FEI-modded vertical-GPS rail -->
+    <husky_rail_mods parent="base_footprint" name="fei_gps_rail" mesh="tslot_400x20x20"
+          colour="DarkGrey"
+          translateX="-0.15" translateY="0.18" translateZ="${0.191 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="${M_PI/2.0}" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.4" />
+    <gazebo reference="base_footprint_fei_gps_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- FEI-modded GPS antenna/module -->
+    <sensor_gps parent="base_link" name="gps"
+          colour="White"
+          gps_px="-0.151" gps_py="0.182" gps_pz="${0.224 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          gps_or="0.0" gps_op="0.0" gps_oy="${M_PI}" dimX="0.16" dimY="0.16" dimZ="0.16" />
+    <gazebo reference="gps_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- FEI-modded barometer module -->
+    <sensor_baro parent="base_link" name="baro"
+          colour="Red"
+          baro_px="0.192" baro_py="-0.05" baro_pz="${0.05 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          baro_or="0.0" baro_op="0.0" baro_oy="0.0" />
+    <gazebo reference="baro_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <!-- FEI-modded vertical-camera rail -->
+    <husky_rail_mods parent="base_footprint" name="fei_cam_rail" mesh="tslot_300x20x20"
+          colour="DarkGrey"
+          translateX="-0.15" translateY="0.0" translateZ="${0.151 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.3" />
+    <gazebo reference="base_footprint_fei_cam_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- FEI-modded 3D sensor -->
+    <sensor_kinect parent="base_link" cam_px="-0.12" cam_py="0.0" cam_pz="${0.207 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
+
+    <!-- FEI-modded IMU sensor -->
+    <!--<sensor_imu name="imu" parent="base" colour="Blue" imu_px="0.192" imu_py="0.0" imu_pz="${0.05 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" imu_or="0.0" imu_op="${M_PI/2.0}" imu_oy="0.0" imu_topic="imu_data" update_rate="100.0" stdev="1.7e-2" /> -->
+    <sensor_imu parent="base_link" name="imu" colour="Blue" imu_px="0.192" imu_py="0.0" imu_pz="${0.05 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" imu_or="0.0" imu_op="${M_PI/2.0}" imu_oy="0.0" />
+    <gazebo reference="imu_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+    <!-- FEI-modded Sick LMS100 laser sensor -->
+    <sick_lms100_laser name="laser" parent="base_link" laser_px="0.314" laser_py="0.0" laser_pz="${0.14 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" laser_or="0.0" laser_op="0.0" laser_oy="0" />
+
+    <!-- FEI-modded Sick LMS100 support holder -->
+    <husky_rail_mods parent="base_footprint" name="lms100_support" mesh="sensors/LMS100_support_holder" colour="DarkGrey" translateX="0.314" translateY="0.0" translateZ="${0.335 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.1" />
+    <gazebo reference="base_footprint_lms100_support_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- FEI-modded Sick LMS100 vertical rails -->
+    <husky_rail_mods parent="base_footprint" name="fei_lms100_r_rail" mesh="tslot_100x20x20"
+          colour="DarkGrey"
+          translateX="0.242" translateY="0.035" translateZ="${0.276 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.1" />
+    <gazebo reference="base_footprint_fei_lms100_r_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+    <husky_rail_mods parent="base_footprint" name="fei_lms100_l_rail" mesh="tslot_100x20x20"
+          colour="DarkGrey"
+          translateX="0.242" translateY="-0.035" translateZ="${0.276 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.1" />
+    <gazebo reference="base_footprint_fei_lms100_l_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
+    <!-- Bumpers -->
+    <husky_part parent="base_footprint" name="front_bumper" mesh="bumper" 
+          colour="DarkGrey"
+          translateX="0.490" translateY="0.0" translateZ="${0.091 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" use_dae="false" />
+    <gazebo reference="base_footprint_front_bumper_part">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+    <husky_part parent="base_footprint" name="rear_bumper" mesh="bumper"
+          colour="DarkGrey"
+          translateX="-0.48" translateY="0.0" translateZ="${0.091 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="3.14" use_dae="false" />
+    <gazebo reference="base_footprint_rear_bumper_part">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
+    <gazebo>
+	<plugin name="husky_diff_controller" filename="libhusky_fei_gazebo_plugins.so">
+	  <alwaysOn>true</alwaysOn>
+          <updateRate>100.0</updateRate>
+          <backLeftJoint>joint_back_left_wheel</backLeftJoint>
+          <backRightJoint>joint_back_right_wheel</backRightJoint>
+          <frontLeftJoint>joint_front_left_wheel</frontLeftJoint>
+          <frontRightJoint>joint_front_right_wheel</frontRightJoint>
+          <wheelSeparation>${base_y_size}</wheelSeparation>
+          <wheelDiameter>${wheel_x_size}</wheelDiameter>
+          <torque>35</torque>	
+        </plugin>
+    </gazebo>
+        
+</robot>

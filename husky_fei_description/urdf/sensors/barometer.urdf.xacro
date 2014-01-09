@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot name="sensor_baro" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find husky_fei_description)/urdf/sensors/hector_baro_gazebo.urdf.xacro"/>
+ 
+  <xacro:macro name="sensor_baro" params="parent name colour baro_px baro_py baro_pz baro_or baro_op baro_oy">
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.10"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+          <box size="0.01 0.02 0.02"/>
+	</geometry>
+	<material name="${colour}" />
+      </visual>
+<!--
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="${dimX} ${dimY} ${dimZ}"/>
+        </geometry>
+      </collision>
+-->
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+      <origin xyz="${baro_px} ${baro_py} ${baro_pz}" rpy="${baro_or} ${baro_op} ${baro_oy}"/>
+    </joint>
+
+  <!-- baro sensor for simulation -->
+  <xacro:husky_fei_sim_barosensor name="${name}" />
+  </xacro:macro>
+
+</robot>
