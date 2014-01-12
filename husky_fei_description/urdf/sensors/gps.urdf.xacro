@@ -13,14 +13,14 @@
       <visual>
 	<origin xyz="0 0 0" rpy="0 0 0" />
 	<geometry>
-          <mesh filename="package://husky_fei_description/meshes/sensors/GPSAntenna.dae" />
+          <mesh filename="package://husky_fei_description/meshes/sensors/GPSAntennaScaledDown.dae" />
 	</geometry>
 	<material name="${colour}" />
       </visual>
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <box size="${dimX} ${dimY} ${dimZ}"/>
+          <box size="${dimX * 0.6} ${dimY * 0.6} ${dimZ * 0.6}"/>
         </geometry>
       </collision>
     </link>

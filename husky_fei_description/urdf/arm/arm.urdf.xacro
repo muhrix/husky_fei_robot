@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot name="turtlebot_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Included URDF Files -->
+    <include filename="$(find husky_fei_description)/urdf/arm/arm.xacro" />
+
+    <link name="base_link"/>
+
+    <turtlebot_arm parent="base_link" color="white" gripper_color="green">
+      <origin xyz="0 0 0"/>
+    </turtlebot_arm>
+
+</robot>
