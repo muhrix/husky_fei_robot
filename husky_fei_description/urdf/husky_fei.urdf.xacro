@@ -144,10 +144,10 @@
     </gazebo>
 
     <!-- FEI-modded vertical-GPS rail -->
-    <husky_rail_mods parent="base_footprint" name="fei_gps_rail" mesh="tslot_400x20x20"
+    <husky_rail_mods parent="base_footprint" name="fei_gps_rail" mesh="tslot_200x20x20"
           colour="DarkGrey"
-          translateX="-0.15" translateY="0.18" translateZ="${0.191 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
-          rotateX="${M_PI/2.0}" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.4" />
+          translateX="-0.15" translateY="0.18" translateZ="${0.101 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.4" />
     <gazebo reference="base_footprint_fei_gps_rail_part">
         <material>Gazebo/Grey</material>
     </gazebo>
@@ -155,7 +155,7 @@
     <!-- FEI-modded GPS antenna/module -->
     <sensor_gps parent="base_link" name="gps"
           colour="White"
-          gps_px="-0.151" gps_py="0.182" gps_pz="${0.224 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          gps_px="-0.151" gps_py="0.18" gps_pz="${0.094 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           gps_or="0.0" gps_op="0.0" gps_oy="${M_PI}" dimX="0.16" dimY="0.16" dimZ="0.16" />
     <gazebo reference="gps_link">
         <material>Gazebo/White</material>
@@ -182,9 +182,18 @@
     <!-- FEI-modded 3D sensor -->
     <sensor_kinect name="camera" parent="base_link" cam_px="-0.12" cam_py="0.0" cam_pz="${0.207 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
 
+    <!-- FEI-modded vertical-stereo-camera rail -->
+    <husky_rail_mods parent="base_footprint" name="fei_stereo_rail" mesh="tslot_450x20x20"
+          colour="DarkGrey"
+          translateX="-0.24" translateY="0.0" translateZ="${0.216 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          rotateX="${M_PI/2.0}" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.3" />
+    <gazebo reference="base_footprint_fei_stereo_rail_part">
+        <material>Gazebo/Grey</material>
+    </gazebo>
+
     <!-- FEI-modded multicamera sensor -->
+    <sensor_multicamera name="stereo_camera" parent="base_link" baseline="0.062" colour="Red" cam_px="-0.24" cam_py="0.0" cam_pz="${0.311 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
 <!--
-    <sensor_multicamera name="stereo_camera" parent="base_link" baseline="0.062" colour="Red" cam_px="-0.15" cam_py="0.0" cam_pz="${0.151 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
     <gazebo reference="stereo_camera_link">
         <material>Gazebo/Red</material>
     </gazebo>
