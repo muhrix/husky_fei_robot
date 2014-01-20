@@ -5,7 +5,9 @@
       <sensor type="multicamera" name="${name}">
         <update_rate>60.0</update_rate>
         <camera name="left">
-          <pose>0 ${baseline/2.0} 0 0 0 0</pose>
+<!-- x = 0.035 because the face of the red box is +0.05m/2 = 0.025m from origin + 
+         0.01m for the black circle -->
+          <pose>0.035 ${baseline/2.0} 0 0 0 0</pose>
           <!-- <horizontal_fov>1.3962634</horizontal_fov> -->
           <horizontal_fov>${3.1415926535897931/2.0}</horizontal_fov>
           <image>
@@ -24,7 +26,9 @@
           </noise>
         </camera>
         <camera name="right">
-          <pose>0 ${-baseline/2.0} 0 0 0 0</pose>
+<!-- x = 0.035 because the face of the red box is +0.05m/2 = 0.025m from origin + 
+         0.01m for the black circle -->
+          <pose>0.035 ${-baseline/2.0} 0 0 0 0</pose>
           <!-- <horizontal_fov>1.3962634</horizontal_fov> -->
           <horizontal_fov>${3.1415926535897931/2.0}</horizontal_fov>
           <image>

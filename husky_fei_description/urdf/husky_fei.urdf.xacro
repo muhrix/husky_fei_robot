@@ -183,17 +183,16 @@
     <sensor_kinect name="camera" parent="base_link" cam_px="-0.12" cam_py="0.0" cam_pz="${0.207 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
 
     <!-- FEI-modded vertical-stereo-camera rail -->
-    <husky_rail_mods parent="base_footprint" name="fei_stereo_rail" mesh="tslot_450x20x20"
+    <husky_rail_mods parent="base_footprint" name="fei_stereo_rail" mesh="tslot_500x20x20"
           colour="DarkGrey"
-          translateX="-0.24" translateY="0.0" translateZ="${0.216 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+          translateX="-0.24" translateY="0.0" translateZ="${0.241 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="${M_PI/2.0}" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.3" />
     <gazebo reference="base_footprint_fei_stereo_rail_part">
         <material>Gazebo/Grey</material>
     </gazebo>
 
     <!-- FEI-modded multicamera sensor -->
-    <sensor_multicamera name="stereo_camera" parent="base_link" baseline="0.062" colour="Red" cam_px="-0.24" cam_py="0.0" cam_pz="${0.311 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
-<!--
+    <sensor_multicamera name="stereo_camera" parent="base_link" baseline="0.062" colour="Red" cam_px="-0.24" cam_py="0.0" cam_pz="${0.361 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
     <gazebo reference="stereo_camera_link">
         <material>Gazebo/Red</material>
     </gazebo>
@@ -203,7 +202,6 @@
     <gazebo reference="right_camera_frame">
         <material>Gazebo/Black</material>
     </gazebo>
--->
 
     <!-- FEI-modded IMU sensor -->
     <!--<sensor_imu name="imu" parent="base" colour="Blue" imu_px="0.192" imu_py="0.0" imu_pz="${0.05 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" imu_or="0.0" imu_op="${M_PI/2.0}" imu_oy="0.0" imu_topic="imu_data" update_rate="100.0" stdev="1.7e-2" /> -->
