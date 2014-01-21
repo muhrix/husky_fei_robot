@@ -147,7 +147,7 @@
     <husky_rail_mods parent="base_footprint" name="fei_gps_rail" mesh="tslot_200x20x20"
           colour="DarkGrey"
           translateX="-0.15" translateY="0.18" translateZ="${0.101 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
-          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.4" />
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.2" />
     <gazebo reference="base_footprint_fei_gps_rail_part">
         <material>Gazebo/Grey</material>
     </gazebo>
@@ -156,7 +156,7 @@
     <sensor_gps parent="base_link" name="gps"
           colour="White"
           gps_px="-0.151" gps_py="0.18" gps_pz="${0.094 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
-          gps_or="0.0" gps_op="0.0" gps_oy="${M_PI}" dimX="0.16" dimY="0.16" dimZ="0.16" />
+          gps_or="0.0" gps_op="0.0" gps_oy="${M_PI}" dimX="0.16" dimY="0.16" dimZ="0.14" />
     <gazebo reference="gps_link">
         <material>Gazebo/White</material>
     </gazebo>
@@ -186,7 +186,7 @@
     <husky_rail_mods parent="base_footprint" name="fei_stereo_rail" mesh="tslot_500x20x20"
           colour="DarkGrey"
           translateX="-0.24" translateY="0.0" translateZ="${0.241 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
-          rotateX="${M_PI/2.0}" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.3" />
+          rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.5" />
     <gazebo reference="base_footprint_fei_stereo_rail_part">
         <material>Gazebo/Grey</material>
     </gazebo>
