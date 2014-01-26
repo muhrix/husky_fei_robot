@@ -73,8 +73,7 @@
       </inertial>
     </link>
 	  
-  <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch 
-       files. However, for Gazebo simulation we need them, so we add them here.
+  <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch files. However, for Gazebo simulation we need them, so we add them here.
        (Hence, don't publish them additionally!) -->
   <joint name="${name}_depth_joint" type="fixed">
     <origin xyz="0.031 +0.0127 0.016" rpy="0 0 0" />

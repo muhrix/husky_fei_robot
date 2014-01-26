@@ -14,7 +14,7 @@
             <height>480</height>
           </image>
           <clip>
-            <near>0.05</near>
+            <near>0.01</near>
             <far>8.0</far>
           </clip>
         </camera>
@@ -34,6 +34,13 @@
           <distortion_t1>0.0</distortion_t1>
           <distortion_t2>0.0</distortion_t2>
           <pointCloudCutoff>0.4</pointCloudCutoff>
+
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
+
         </plugin>
       </sensor>
     </gazebo>
