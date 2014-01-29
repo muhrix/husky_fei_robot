@@ -4,15 +4,15 @@
   <arg name="drive_speed" default="0.7" />
   <arg name="turn_speed" default="1.5" />
   <arg name="run_speed" default="0.7" />
-  <!-- <arg name="cmd_topic" default="husky_fei/cmd_vel" /> -->
+  <arg name="cmd_topic" default="cmd_vel" />
      
-  <group ns="$(arg name)">
+  <!-- <group ns="$(arg name)"> -->
     <node pkg="husky_fei_teleop" type="keyboard_teleop" name="husky_fei_keyboard" output="screen">
       <param name="walk_vel" value="$(arg drive_speed)" />
       <param name="run_vel" value="$(arg turn_speed)" />
       <param name="yaw_rate" value="$(arg run_speed)" />
-      <!-- <remap from="cmd_vel" to="$(arg cmd_topic)" /> -->
+      <remap from="cmd_vel" to="$(arg cmd_topic)" />
     </node>
-  </group>
+  <!-- </group> -->
 </launch>
 
