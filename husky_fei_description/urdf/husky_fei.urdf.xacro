@@ -179,8 +179,8 @@
         <material>Gazebo/Grey</material>
     </gazebo>
 
-    <!-- FEI-modded 3D sensor -->
-    <sensor_kinect name="camera" parent="base_link" cam_px="-0.12" cam_py="0.0" cam_pz="${0.207 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
+    <!-- FEI-modded 3D sensor cam_pz: 0.151 works well too, but must change rail -->
+    <sensor_kinect name="camera" parent="base_link" cam_px="-0.151" cam_py="0.0" cam_pz="${0.191 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
 
     <!-- FEI-modded vertical-stereo-camera rail -->
     <husky_rail_mods parent="base_footprint" name="fei_stereo_rail" mesh="tslot_500x20x20"

@@ -401,7 +401,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.02 0.02 0.4"/>
+        <box size="0.02 0.02 0.2"/>
       </geometry>
     </collision>
   </link>
@@ -430,7 +430,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.096 0.096 0.096"/>
+        <box size="0.096 0.096 0.084"/>
       </geometry>
     </collision>
   </link>
@@ -444,11 +444,12 @@
       <always_on>true</always_on>
       <updateRate>10.0</updateRate>
       <frameId>gps_link</frameId>
-      <bodyName>gps_link</bodyName>
+      <!-- <bodyName>${name}_link</bodyName> -->
+      <bodyName>base_footprint</bodyName>
       <topicName>gps_fix</topicName>
       <velocityTopicName>gps_fix_velocity</velocityTopicName>
       <drift>5.0 5.0 5.0</drift>
-      <gaussianNoise>0.01 0.01 0.01</gaussianNoise>
+      <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
       <velocityDrift>0 0 0</velocityDrift>
       <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
     </plugin>
@@ -604,20 +605,21 @@
     </inertial>
   </link>
   <gazebo reference="camera_link">
-    <sensor name="camera" type="depth">
+    <sensor name="camera_frame_sensor" type="depth">
       <always_on>true</always_on>
       <update_rate>30.0</update_rate>
       <camera>
-        <horizontal_fov>1.0471975512</horizontal_fov>
+        <horizontal_fov>0.994837673637</horizontal_fov>
         <image>
           <format>R8G8B8</format>
           <width>640</width>
           <height>480</height>
         </image>
         <clip>
-          <near>0.05</near>
-          <far>8.0</far>
+          <near>0.1</near>
+          <far>100.0</far>
         </clip>
+        <baseline>0.2</baseline>
       </camera>
       <plugin filename="libgazebo_ros_openni_kinect.so" name="gazebo_ros_camera_controller">
         <cameraName>camera</cameraName>
@@ -628,13 +630,12 @@
         <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
         <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
         <frameName>camera_depth_optical_frame</frameName>
-        <baseline>0.1</baseline>
-        <distortion_k1>0.0</distortion_k1>
-        <distortion_k2>0.0</distortion_k2>
-        <distortion_k3>0.0</distortion_k3>
-        <distortion_t1>0.0</distortion_t1>
-        <distortion_t2>0.0</distortion_t2>
-        <pointCloudCutoff>0.4</pointCloudCutoff>
+        <pointCloudCutoff>0.5</pointCloudCutoff>
+        <distortion_k1>0.00000001</distortion_k1>
+        <distortion_k2>0.00000001</distortion_k2>
+        <distortion_k3>0.00000001</distortion_k3>
+        <distortion_t1>0.00000001</distortion_t1>
+        <distortion_t2>0.00000001</distortion_t2>
       </plugin>
     </sensor>
   </gazebo>
@@ -655,12 +656,12 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.02 0.02 0.3"/>
+        <box size="0.02 0.02 0.5"/>
       </geometry>
     </collision>
   </link>
   <joint name="base_footprint_fei_stereo_rail_joint" type="fixed">
-    <origin rpy="1.57079632679 0.0 0.0" xyz="-0.24 0.0 0.63092492"/>
+    <origin rpy="0.0 0.0 0.0" xyz="-0.24 0.0 0.63092492"/>
     <parent link="base_footprint"/>
     <child link="base_footprint_fei_stereo_rail_part"/>
   </joint>
@@ -680,9 +681,10 @@
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size="0.05 0.1 0.05"/>
+        <!-- <box size="0.05 0.1 0.05" /> -->
+        <cylinder length="0.1" radius="0.025"/>
       </geometry>
       <material name="Red"/>
       <!--
@@ -694,18 +696,23 @@
     <collision>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <box size="0.05 0.1 0.05"/>
+        <box size="0.06 0.11 0.06"/>
       </geometry>
     </collision>
   </link>
   <joint name="left_camera_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.025 0.031 0"/>
+    <origin rpy="0 0 0" xyz="0.030 0.031 0"/>
     <parent link="stereo_camera_link"/>
     <child link="left_camera_frame"/>
   </joint>
   <link name="left_camera_frame">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
     <visual>
-      <origin rpy="0 1.57079632679 0" xyz="0 0 0"/>
+      <origin rpy="0 1.57079632679 0" xyz="-0.005 0 0"/>
       <geometry>
         <cylinder length="0.01" radius="0.01"/>
       </geometry>
@@ -713,13 +720,18 @@
     </visual>
   </link>
   <joint name="right_camera_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.025 -0.031 0"/>
+    <origin rpy="0 0 0" xyz="0.030 -0.031 0"/>
     <parent link="stereo_camera_link"/>
     <child link="right_camera_frame"/>
   </joint>
   <link name="right_camera_frame">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
     <visual>
-      <origin rpy="0 1.57079632679 0" xyz="0 0 0"/>
+      <origin rpy="0 1.57079632679 0" xyz="-0.005 0 0"/>
       <geometry>
         <cylinder length="0.01" radius="0.01"/>
       </geometry>
@@ -730,9 +742,7 @@
     <sensor name="stereo_camera" type="multicamera">
       <update_rate>60.0</update_rate>
       <camera name="left">
-        <!-- x = 0.035 because the face of the red box is +0.05m/2 = 0.025m from origin + 
-         0.01m for the black circle -->
-        <pose>0.035 0.031 0 0 0 0</pose>
+        <pose>0.030 0.031 0 0 0 0</pose>
         <!-- <horizontal_fov>1.3962634</horizontal_fov> -->
         <horizontal_fov>1.57079632679</horizontal_fov>
         <image>
@@ -751,9 +761,7 @@
         </noise>
       </camera>
       <camera name="right">
-        <!-- x = 0.035 because the face of the red box is +0.05m/2 = 0.025m from origin + 
-         0.01m for the black circle -->
-        <pose>0.035 -0.031 0 0 0 0</pose>
+        <pose>0.030 -0.031 0 0 0 0</pose>
         <!-- <horizontal_fov>1.3962634</horizontal_fov> -->
         <horizontal_fov>1.57079632679</horizontal_fov>
         <image>
@@ -777,7 +785,7 @@
         <cameraName>stereo_camera</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>stereo_camera_info</cameraInfoTopicName>
-        <frameName>stereo_camera_left_camera_optical_frame</frameName>
+        <frameName>left_camera_frame</frameName>
         <hackBaseline>0.062</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
@@ -863,7 +871,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
       <geometry>
-        <box size="0.120 0.102 0.165"/>
+        <box size="0.122 0.104 0.175"/>
       </geometry>
     </collision>
     <visual>
@@ -874,7 +882,7 @@
     </visual>
   </link>
   <gazebo reference="laser_link">
-    <sensor name="laser_lms100_sensor" type="gpu_ray">
+    <sensor name="laser_lms100_sensor" type="ray">
       <always_on>true</always_on>
       <update_rate>50</update_rate>
       <pose>0 0 0 0 0 0</pose>
@@ -889,7 +897,7 @@
           </horizontal>
         </scan>
         <range>
-          <min>0.05</min>
+          <min>0.10</min>
           <max>20.0</max>
           <resolution>0.01</resolution>
         </range>
@@ -903,7 +911,7 @@
           <stddev>0.012</stddev>
         </noise>
       </ray>
-      <plugin filename="libgazebo_ros_gpu_laser.so" name="gazebo_ros_laser_controller">
+      <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_laser_controller">
         <topicName>laser_data</topicName>
         <frameName>laser_link</frameName>
       </plugin>
