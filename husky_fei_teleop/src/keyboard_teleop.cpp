@@ -55,6 +55,8 @@
 #define KEYCODE_W_CAP 0x57
 #define KEYCODE_Q_CAP 0x51
 #define KEYCODE_E_CAP 0x45
+#define KEYCODE_U     0x75
+#define KEYCODE_J     0x6A
 
 class TeleopHuskyKeyboard
 {
@@ -137,7 +139,7 @@ void TeleopHuskyKeyboard::keyboardLoop()
       exit(-1);
     }
 
-    cmd.linear.x = cmd.angular.z = 0;
+    cmd.linear.x = cmd.angular.z = cmd.linear.z = 0;
 
     switch(c)
     {
@@ -194,6 +196,16 @@ void TeleopHuskyKeyboard::keyboardLoop()
     case KEYCODE_E_CAP:
       cmd.linear.x = run_vel;
       cmd.angular.z = - yaw_rate;
+      dirty = true;
+      break;
+      
+      // Linear velocity in z
+    case KEYCODE_U:
+      cmd.linear.z = 0.5;
+      dirty = true;
+      break;
+    case KEYCODE_J:
+      cmd.linear.z = -0.5;      
       dirty = true;
       break;
     }
