@@ -4,13 +4,13 @@
   <xacro:include filename="$(find husky_fei_description)/urdf/sensors/sick_lms100_gpu_laser.gazebo.xacro" />
 
   <xacro:macro name="sick_lms100_gpu_laser" params="name parent laser_px laser_py laser_pz laser_or laser_op laser_oy">
-    <joint name="${name}_joint" type="fixed">
+    <joint name="$(arg prefix)_${name}_joint" type="fixed">
       <!-- <axis xyz="0 1 0" /> -->
       <origin xyz="${laser_px} ${laser_py} ${laser_pz}" rpy="${laser_or} ${laser_op} ${laser_oy}"/>
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="$(arg prefix)_${name}_link"/>
     </joint>
-    <link name="${name}_link" type="laser">
+    <link name="$(arg prefix)_${name}_link" type="laser">
       <inertial>
         <mass value="1.1" />
         <origin xyz="0 0 0.05" rpy="0 0 0" />

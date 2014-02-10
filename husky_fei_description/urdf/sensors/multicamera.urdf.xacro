@@ -5,13 +5,13 @@
 
   <xacro:macro name="sensor_multicamera" params="name parent baseline colour cam_px cam_py cam_pz cam_or cam_op cam_oy">
 
-    <joint name="${name}_joint" type="fixed">
+    <joint name="$(arg prefix)_${name}_joint" type="fixed">
       <origin xyz="${cam_px} ${cam_py} ${cam_pz}" rpy="${cam_or} ${cam_op} ${cam_oy}"/>
       <parent link="${parent}" />
-      <child link="${name}_link" />
+      <child link="$(arg prefix)_${name}_link" />
     </joint>
 
-    <link name="${name}_link">
+    <link name="$(arg prefix)_${name}_link">
       <inertial>
         <mass value="0.01" />
         <origin xyz="0 0 0" />
@@ -40,13 +40,13 @@
       </collision>
     </link>
 
-    <joint name="left_camera_joint" type="fixed">
+    <joint name="$(arg prefix)_left_camera_joint" type="fixed">
       <origin xyz="0.030 ${baseline/2.0} 0" rpy="0 0 0" />
-      <parent link="${name}_link" />
-      <child link="left_camera_frame" />
+      <parent link="$(arg prefix)_${name}_link" />
+      <child link="$(arg prefix)_left_camera_frame" />
     </joint>
 
-    <link name="left_camera_frame">
+    <link name="$(arg prefix)_left_camera_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />
@@ -63,13 +63,13 @@
       </visual>
     </link>
 
-    <joint name="right_camera_joint" type="fixed">
+    <joint name="$(arg prefix)_right_camera_joint" type="fixed">
       <origin xyz="0.030 ${-baseline/2.0} 0" rpy="0 0 0" />
-      <parent link="${name}_link" />
-      <child link="right_camera_frame" />
+      <parent link="$(arg prefix)_${name}_link" />
+      <child link="$(arg prefix)_right_camera_frame" />
     </joint>
 
-    <link name="right_camera_frame">
+    <link name="$(arg prefix)_right_camera_frame">
       <inertial>
         <mass value="0.001" />
         <origin xyz="0 0 0" />

@@ -4,7 +4,7 @@
   <xacro:include filename="$(find husky_fei_description)/urdf/sensors/kingfisher_imu_gazebo.urdf.xacro"/>
  
   <xacro:macro name="sensor_imu" params="parent name colour imu_px imu_py imu_pz imu_or imu_op imu_oy">
-    <link name="${name}_link">
+    <link name="$(arg prefix)_${name}_link">
       <inertial>
         <mass value="0.01"/>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -26,9 +26,9 @@
       </collision>
 -->
     </link>
-    <joint name="${name}_joint" type="fixed">
+    <joint name="$(arg prefix)_${name}_joint" type="fixed">
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="$(arg prefix)_${name}_link"/>
       <origin xyz="${imu_px} ${imu_py} ${imu_pz}" rpy="${imu_or} ${imu_op} ${imu_oy}"/>
     </joint>
 

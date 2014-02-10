@@ -1,0 +1,92 @@
+digraph G {
+node [shape=box];
+"husky_base_footprint" [label="husky_base_footprint"];
+"husky_base_footprint_fei_cam_rail_part" [label="husky_base_footprint_fei_cam_rail_part"];
+"husky_base_footprint_fei_gps_rail_part" [label="husky_base_footprint_fei_gps_rail_part"];
+"husky_base_footprint_fei_hb_rail_part" [label="husky_base_footprint_fei_hb_rail_part"];
+"husky_base_footprint_fei_hf_rail_part" [label="husky_base_footprint_fei_hf_rail_part"];
+"husky_base_footprint_fei_lms100_l_rail_part" [label="husky_base_footprint_fei_lms100_l_rail_part"];
+"husky_base_footprint_fei_lms100_r_rail_part" [label="husky_base_footprint_fei_lms100_r_rail_part"];
+"husky_base_footprint_fei_stereo_rail_part" [label="husky_base_footprint_fei_stereo_rail_part"];
+"husky_base_footprint_front_bumper_part" [label="husky_base_footprint_front_bumper_part"];
+"husky_base_link" [label="husky_base_link"];
+"husky_baro_link" [label="husky_baro_link"];
+"husky_camera_link" [label="husky_camera_link"];
+"husky_camera_depth_frame" [label="husky_camera_depth_frame"];
+"husky_camera_depth_optical_frame" [label="husky_camera_depth_optical_frame"];
+"husky_camera_rgb_frame" [label="husky_camera_rgb_frame"];
+"husky_camera_rgb_optical_frame" [label="husky_camera_rgb_optical_frame"];
+"husky_gps_link" [label="husky_gps_link"];
+"husky_imu_link" [label="husky_imu_link"];
+"husky_back_left_wheel" [label="husky_back_left_wheel"];
+"husky_back_right_wheel" [label="husky_back_right_wheel"];
+"husky_front_left_wheel" [label="husky_front_left_wheel"];
+"husky_front_right_wheel" [label="husky_front_right_wheel"];
+"husky_laser_link" [label="husky_laser_link"];
+"husky_stereo_camera_link" [label="husky_stereo_camera_link"];
+"husky_left_camera_frame" [label="husky_left_camera_frame"];
+"husky_right_camera_frame" [label="husky_right_camera_frame"];
+"husky_base_footprint_lms100_support_part" [label="husky_base_footprint_lms100_support_part"];
+"husky_base_footprint_rear_bumper_part" [label="husky_base_footprint_rear_bumper_part"];
+"husky_base_footprint_top_plate_part" [label="husky_base_footprint_top_plate_part"];
+"husky_base_footprint_user_rail_part" [label="husky_base_footprint_user_rail_part"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"husky_base_footprint" -> "husky_base_footprint_fei_cam_rail_joint" [label="xyz: -0.15 0 0.540925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_cam_rail_joint" -> "husky_base_footprint_fei_cam_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_fei_gps_rail_joint" [label="xyz: -0.15 0.18 0.490925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_gps_rail_joint" -> "husky_base_footprint_fei_gps_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_fei_hb_rail_joint" [label="xyz: -0.15 0 0.380925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_hb_rail_joint" -> "husky_base_footprint_fei_hb_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_fei_hf_rail_joint" [label="xyz: 0.21 0 0.380925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_hf_rail_joint" -> "husky_base_footprint_fei_hf_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_fei_lms100_l_rail_joint" [label="xyz: 0.242 -0.035 0.420925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_lms100_l_rail_joint" -> "husky_base_footprint_fei_lms100_l_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_fei_lms100_r_rail_joint" [label="xyz: 0.242 0.035 0.420925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_lms100_r_rail_joint" -> "husky_base_footprint_fei_lms100_r_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_fei_stereo_rail_joint" [label="xyz: -0.24 0 0.630925 \nrpy: 0 -0 0"]
+"husky_base_footprint_fei_stereo_rail_joint" -> "husky_base_footprint_fei_stereo_rail_part"
+"husky_base_footprint" -> "husky_base_footprint_front_bumper_joint" [label="xyz: 0.49 0 0.235925 \nrpy: 0 -0 0"]
+"husky_base_footprint_front_bumper_joint" -> "husky_base_footprint_front_bumper_part"
+"husky_base_footprint" -> "husky_base_footprint_joint" [label="xyz: 0 0 0.144925 \nrpy: 0 -0 0"]
+"husky_base_footprint_joint" -> "husky_base_link"
+"husky_base_link" -> "husky_baro_joint" [label="xyz: 0.192 -0.05 0.194925 \nrpy: 0 -0 0"]
+"husky_baro_joint" -> "husky_baro_link"
+"husky_base_link" -> "husky_camera_joint" [label="xyz: -0.151 0 0.565925 \nrpy: 0 -0 0"]
+"husky_camera_joint" -> "husky_camera_link"
+"husky_camera_link" -> "husky_camera_depth_joint" [label="xyz: 0.031 0.0127 0.031 \nrpy: 0 -0 0"]
+"husky_camera_depth_joint" -> "husky_camera_depth_frame"
+"husky_camera_depth_frame" -> "husky_camera_depth_optical_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.5708"]
+"husky_camera_depth_optical_joint" -> "husky_camera_depth_optical_frame"
+"husky_camera_link" -> "husky_camera_rgb_joint" [label="xyz: 0.031 -0.0127 0.031 \nrpy: 0 -0 0"]
+"husky_camera_rgb_joint" -> "husky_camera_rgb_frame"
+"husky_camera_rgb_frame" -> "husky_camera_rgb_optical_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.5708"]
+"husky_camera_rgb_optical_joint" -> "husky_camera_rgb_optical_frame"
+"husky_base_link" -> "husky_gps_joint" [label="xyz: -0.151 0.18 0.483925 \nrpy: 0 -0 -3.14159"]
+"husky_gps_joint" -> "husky_gps_link"
+"husky_base_link" -> "husky_imu_joint" [label="xyz: 0.192 0 0.194925 \nrpy: 0 -1.5708 0"]
+"husky_imu_joint" -> "husky_imu_link"
+"husky_base_link" -> "husky_joint_back_left_wheel" [label="xyz: -0.256 0.285475 0.0328251 \nrpy: 0 -0 0"]
+"husky_joint_back_left_wheel" -> "husky_back_left_wheel"
+"husky_base_link" -> "husky_joint_back_right_wheel" [label="xyz: -0.256 -0.285475 0.0328251 \nrpy: 0 -0 0"]
+"husky_joint_back_right_wheel" -> "husky_back_right_wheel"
+"husky_base_link" -> "husky_joint_front_left_wheel" [label="xyz: 0.256 0.285475 0.0328251 \nrpy: 0 -0 0"]
+"husky_joint_front_left_wheel" -> "husky_front_left_wheel"
+"husky_base_link" -> "husky_joint_front_right_wheel" [label="xyz: 0.256 -0.285475 0.0328251 \nrpy: 0 -0 0"]
+"husky_joint_front_right_wheel" -> "husky_front_right_wheel"
+"husky_base_link" -> "husky_laser_joint" [label="xyz: 0.314 0 0.284925 \nrpy: 0 -0 0"]
+"husky_laser_joint" -> "husky_laser_link"
+"husky_base_link" -> "husky_stereo_camera_joint" [label="xyz: -0.24 0 0.750925 \nrpy: 0 -0 0"]
+"husky_stereo_camera_joint" -> "husky_stereo_camera_link"
+"husky_stereo_camera_link" -> "husky_left_camera_joint" [label="xyz: 0.03 0.031 0 \nrpy: 0 -0 0"]
+"husky_left_camera_joint" -> "husky_left_camera_frame"
+"husky_stereo_camera_link" -> "husky_right_camera_joint" [label="xyz: 0.03 -0.031 0 \nrpy: 0 -0 0"]
+"husky_right_camera_joint" -> "husky_right_camera_frame"
+"husky_base_footprint" -> "husky_base_footprint_lms100_support_joint" [label="xyz: 0.314 0 0.479925 \nrpy: 0 -0 0"]
+"husky_base_footprint_lms100_support_joint" -> "husky_base_footprint_lms100_support_part"
+"husky_base_footprint" -> "husky_base_footprint_rear_bumper_joint" [label="xyz: -0.48 0 0.235925 \nrpy: 0 -0 3.14"]
+"husky_base_footprint_rear_bumper_joint" -> "husky_base_footprint_rear_bumper_part"
+"husky_base_footprint" -> "husky_base_footprint_top_plate_joint" [label="xyz: 0 0 0.144925 \nrpy: 0 -0 0"]
+"husky_base_footprint_top_plate_joint" -> "husky_base_footprint_top_plate_part"
+"husky_base_footprint" -> "husky_base_footprint_user_rail_joint" [label="xyz: 0.272 0 0.389925 \nrpy: 0 -0 0"]
+"husky_base_footprint_user_rail_joint" -> "husky_base_footprint_user_rail_part"
+}

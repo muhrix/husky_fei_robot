@@ -40,9 +40,9 @@
           </noise>
         </imu>
         <plugin name="imu_controller" filename="libgazebo_ros_imu.so">
-	  <alwaysOn>true</alwaysOn>
+          <alwaysOn>true</alwaysOn>
           <updateRate>100.0</updateRate>
-	  <bodyName>imu_link</bodyName>
+          <bodyName>imu_link</bodyName>
           <topicName>imu_data</topicName>
           <serviceName>imu_service</serviceName>
         </plugin>

@@ -4,7 +4,7 @@
   <xacro:include filename="$(find husky_fei_description)/urdf/sensors/hector_baro_gazebo.urdf.xacro"/>
  
   <xacro:macro name="sensor_baro" params="parent name colour baro_px baro_py baro_pz baro_or baro_op baro_oy">
-    <link name="${name}_link">
+    <link name="$(arg prefix)_${name}_link">
       <inertial>
         <mass value="0.10"/>
         <origin xyz="0 0 0"/>
@@ -26,9 +26,9 @@
       </collision>
 -->
     </link>
-    <joint name="${name}_joint" type="fixed">
+    <joint name="$(arg prefix)_${name}_joint" type="fixed">
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="$(arg prefix)_${name}_link"/>
       <origin xyz="${baro_px} ${baro_py} ${baro_pz}" rpy="${baro_or} ${baro_op} ${baro_oy}"/>
     </joint>
 

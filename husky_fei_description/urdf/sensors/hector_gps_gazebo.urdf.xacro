@@ -1,20 +1,32 @@
 <?xml version="1.0"?>
 <robot name="gpssensor_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="husky_fei_sim_gpssensor" params="name">
+  <xacro:macro name="husky_fei_sim_gpssensor" params="name latitude longitude heading">
     <gazebo>
       <plugin name="hector_gazebo_ros_${name}_controller" filename="libhector_gazebo_ros_gps.so">
 	    <always_on>true</always_on>
-        <updateRate>10.0</updateRate>
-	    <frameId>${name}_link</frameId>
+        <updateRate>5.0</updateRate>
+	    <frameId>$(arg prefix)_${name}_link</frameId>
         <!-- <bodyName>${name}_link</bodyName> -->
-        <bodyName>base_footprint</bodyName>
+        <bodyName>$(arg prefix)_${name}_link</bodyName>
         <topicName>${name}_fix</topicName>
+        <referenceLatitude>${latitude}</referenceLatitude>
+        <referenceLongitude>${longitude}</referenceLongitude>
+        <referenceHeading>${heading}</referenceHeading>        
         <velocityTopicName>${name}_fix_velocity</velocityTopicName>
         <drift>5.0 5.0 5.0</drift>
         <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
         <velocityDrift>0 0 0</velocityDrift>
         <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
       </plugin>
+      
+      <plugin name="hector_gazebo_ros_${name}_groundtruth_sim" filename="libgazebo_ros_p3d.so">
+        <updateRate>100.0</updateRate>
+        <bodyName>$(arg prefix)_${name}_link</bodyName>
+        <topicName>ground_truth/state</topicName>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>world</frameName>
+      </plugin>      
+      
     </gazebo>
   </xacro:macro>
 </robot>

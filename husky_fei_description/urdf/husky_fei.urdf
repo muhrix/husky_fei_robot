@@ -40,12 +40,20 @@
   <!--Inertial values for the base at center of mass, aligned with coordinate system. Units are kg*m^2-->
   <!-- BASE-FOOTPRINT -->
   <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin, navigation stack depends on this frame -->
-  <link name="base_footprint">
-    <inertial>
-      <mass value="0.0001"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
-    </inertial>
+  <link name="husky_base_footprint">
+    <!-- Removing inertial tag due to warning:
+        The root link base_footprint has an inertia specified in the URDF, 
+        but KDL does not support a root link with an inertia. 
+        As a workaround, you can add an extra dummy link to your URDF. -->
+    <!--
+        <inertial>
+            <mass value="0.0001" />
+            <origin xyz="0 0 0" />
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+                iyy="0.0001" iyz="0.0" 
+                izz="0.0001" />
+        </inertial>
+        -->
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -53,17 +61,17 @@
       </geometry>
     </visual>
   </link>
-  <gazebo reference="base_footprint">
+  <gazebo reference="husky_base_footprint">
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  <joint name="base_footprint_joint" type="fixed">
+  <joint name="husky_base_footprint_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.14492492"/>
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_link"/>
   </joint>
   <!-- BASE-LINK -->
   <!--Actual body/chassis of the robot-->
-  <link name="base_link">
+  <link name="husky_base_link">
     <inertial>
       <mass value="33.45489"/>
       <!--This is the pose of the inertial reference frame, relative to the link reference frame. The origin of the inertial reference frame needs to be at the center of gravity. The axes of the inertial reference frame do not need to be aligned with the principal axes of the inertia.-->
@@ -86,12 +94,12 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="base_link">
+  <gazebo reference="husky_base_link">
     <material>Gazebo/FlatBlack</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
   <!-- WHEEL macros -->
-  <link name="back_left_wheel">
+  <link name="husky_back_left_wheel">
     <inertial>
       <mass value="2.63657"/>
       <origin xyz="0.0 0.0 0.00019"/>
@@ -111,7 +119,7 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="back_left_wheel">
+  <gazebo reference="husky_back_left_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
     <kp value="10000000.0"/>
@@ -120,21 +128,21 @@
     <material>Gazebo/Grey</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  <joint name="joint_back_left_wheel" type="continuous">
-    <parent link="base_link"/>
-    <child link="back_left_wheel"/>
+  <joint name="husky_joint_back_left_wheel" type="continuous">
+    <parent link="husky_base_link"/>
+    <child link="husky_back_left_wheel"/>
     <origin rpy="0 0 0" xyz="-0.25600006 0.285475 0.03282508"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-  <transmission name="joint_back_left_wheel_trans" type="SimpleTransmission">
-    <actuator name="joint_back_left_wheel_motor"/>
-    <joint name="joint_back_left_wheel"/>
+  <transmission name="husky_joint_back_left_wheel_trans" type="SimpleTransmission">
+    <actuator name="husky_joint_back_left_wheel_motor"/>
+    <joint name="husky_joint_back_left_wheel"/>
     <mechanicalReduction>1</mechanicalReduction>
     <motorTorqueConstant>1</motorTorqueConstant>
   </transmission>
-  <link name="back_right_wheel">
+  <link name="husky_back_right_wheel">
     <inertial>
       <mass value="2.63657"/>
       <origin xyz="0.0 0.0 0.00019"/>
@@ -154,7 +162,7 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="back_right_wheel">
+  <gazebo reference="husky_back_right_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
     <kp value="10000000.0"/>
@@ -163,21 +171,21 @@
     <material>Gazebo/Grey</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  <joint name="joint_back_right_wheel" type="continuous">
-    <parent link="base_link"/>
-    <child link="back_right_wheel"/>
+  <joint name="husky_joint_back_right_wheel" type="continuous">
+    <parent link="husky_base_link"/>
+    <child link="husky_back_right_wheel"/>
     <origin rpy="0 0 0" xyz="-0.25600006 -0.285475 0.03282508"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-  <transmission name="joint_back_right_wheel_trans" type="SimpleTransmission">
-    <actuator name="joint_back_right_wheel_motor"/>
-    <joint name="joint_back_right_wheel"/>
+  <transmission name="husky_joint_back_right_wheel_trans" type="SimpleTransmission">
+    <actuator name="husky_joint_back_right_wheel_motor"/>
+    <joint name="husky_joint_back_right_wheel"/>
     <mechanicalReduction>1</mechanicalReduction>
     <motorTorqueConstant>1</motorTorqueConstant>
   </transmission>
-  <link name="front_left_wheel">
+  <link name="husky_front_left_wheel">
     <inertial>
       <mass value="2.63657"/>
       <origin xyz="0.0 0.0 0.00019"/>
@@ -197,7 +205,7 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="front_left_wheel">
+  <gazebo reference="husky_front_left_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
     <kp value="10000000.0"/>
@@ -206,21 +214,21 @@
     <material>Gazebo/Grey</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  <joint name="joint_front_left_wheel" type="continuous">
-    <parent link="base_link"/>
-    <child link="front_left_wheel"/>
+  <joint name="husky_joint_front_left_wheel" type="continuous">
+    <parent link="husky_base_link"/>
+    <child link="husky_front_left_wheel"/>
     <origin rpy="0 0 0" xyz="0.25600006 0.285475 0.03282508"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-  <transmission name="joint_front_left_wheel_trans" type="SimpleTransmission">
-    <actuator name="joint_front_left_wheel_motor"/>
-    <joint name="joint_front_left_wheel"/>
+  <transmission name="husky_joint_front_left_wheel_trans" type="SimpleTransmission">
+    <actuator name="husky_joint_front_left_wheel_motor"/>
+    <joint name="husky_joint_front_left_wheel"/>
     <mechanicalReduction>1</mechanicalReduction>
     <motorTorqueConstant>1</motorTorqueConstant>
   </transmission>
-  <link name="front_right_wheel">
+  <link name="husky_front_right_wheel">
     <inertial>
       <mass value="2.63657"/>
       <origin xyz="0.0 0.0 0.00019"/>
@@ -240,7 +248,7 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="front_right_wheel">
+  <gazebo reference="husky_front_right_wheel">
     <mu1 value="1.0"/>
     <mu2 value="1.0"/>
     <kp value="10000000.0"/>
@@ -249,23 +257,23 @@
     <material>Gazebo/Grey</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
-  <joint name="joint_front_right_wheel" type="continuous">
-    <parent link="base_link"/>
-    <child link="front_right_wheel"/>
+  <joint name="husky_joint_front_right_wheel" type="continuous">
+    <parent link="husky_base_link"/>
+    <child link="husky_front_right_wheel"/>
     <origin rpy="0 0 0" xyz="0.25600006 -0.285475 0.03282508"/>
     <axis rpy="0 0 0" xyz="0 1 0"/>
     <limit effort="100" velocity="100"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
-  <transmission name="joint_front_right_wheel_trans" type="SimpleTransmission">
-    <actuator name="joint_front_right_wheel_motor"/>
-    <joint name="joint_front_right_wheel"/>
+  <transmission name="husky_joint_front_right_wheel_trans" type="SimpleTransmission">
+    <actuator name="husky_joint_front_right_wheel_motor"/>
+    <joint name="husky_joint_front_right_wheel"/>
     <mechanicalReduction>1</mechanicalReduction>
     <motorTorqueConstant>1</motorTorqueConstant>
   </transmission>
   <!-- DECORATIONS -->
   <!-- Top Plate -->
-  <link name="base_footprint_top_plate_part">
+  <link name="husky_base_footprint_top_plate_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -286,16 +294,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_top_plate_joint" type="fixed">
+  <joint name="husky_base_footprint_top_plate_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.14492492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_top_plate_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_top_plate_part"/>
   </joint>
-  <gazebo reference="base_footprint_top_plate_part">
+  <gazebo reference="husky_base_footprint_top_plate_part">
     <material>Gazebo/Yellow</material>
   </gazebo>
   <!-- User Rail -->
-  <link name="base_footprint_user_rail_part">
+  <link name="husky_base_footprint_user_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -316,16 +324,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_user_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_user_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.272 0.0 0.38992492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_user_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_user_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_user_rail_part">
+  <gazebo reference="husky_base_footprint_user_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- FEI-modded horizontal-front rail -->
-  <link name="base_footprint_fei_hf_rail_part">
+  <link name="husky_base_footprint_fei_hf_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -346,16 +354,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_hf_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_hf_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.21 0.0 0.38092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_hf_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_hf_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_hf_rail_part">
+  <gazebo reference="husky_base_footprint_fei_hf_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- FEI-modded horizontal-back rail -->
-  <link name="base_footprint_fei_hb_rail_part">
+  <link name="husky_base_footprint_fei_hb_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -376,16 +384,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_hb_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_hb_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.15 0.0 0.38092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_hb_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_hb_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_hb_rail_part">
+  <gazebo reference="husky_base_footprint_fei_hb_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- FEI-modded vertical-GPS rail -->
-  <link name="base_footprint_fei_gps_rail_part">
+  <link name="husky_base_footprint_fei_gps_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -405,16 +413,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_gps_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_gps_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.15 0.18 0.49092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_gps_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_gps_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_gps_rail_part">
+  <gazebo reference="husky_base_footprint_fei_gps_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- FEI-modded GPS antenna/module -->
-  <link name="gps_link">
+  <link name="husky_gps_link">
     <inertial>
       <mass value="0.10"/>
       <origin xyz="0 0 0"/>
@@ -434,31 +442,41 @@
       </geometry>
     </collision>
   </link>
-  <joint name="gps_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="gps_link"/>
+  <joint name="husky_gps_joint" type="fixed">
+    <parent link="husky_base_link"/>
+    <child link="husky_gps_link"/>
     <origin rpy="0.0 0.0 3.14159265359" xyz="-0.151 0.18 0.48392492"/>
   </joint>
   <gazebo>
     <plugin filename="libhector_gazebo_ros_gps.so" name="hector_gazebo_ros_gps_controller">
       <always_on>true</always_on>
-      <updateRate>10.0</updateRate>
+      <updateRate>5.0</updateRate>
       <frameId>gps_link</frameId>
       <!-- <bodyName>${name}_link</bodyName> -->
-      <bodyName>base_footprint</bodyName>
+      <bodyName>base_link</bodyName>
       <topicName>gps_fix</topicName>
+      <referenceLatitude>37.316357</referenceLatitude>
+      <referenceLongitude>141.026065</referenceLongitude>
+      <referenceHeading>90</referenceHeading>
       <velocityTopicName>gps_fix_velocity</velocityTopicName>
       <drift>5.0 5.0 5.0</drift>
       <gaussianNoise>0.1 0.1 0.1</gaussianNoise>
       <velocityDrift>0 0 0</velocityDrift>
       <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
     </plugin>
+    <plugin filename="libgazebo_ros_p3d.so" name="hector_gazebo_ros_gps_groundtruth_sim">
+      <updateRate>100.0</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>ground_truth/state</topicName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <frameName>world</frameName>
+    </plugin>
   </gazebo>
   <gazebo reference="gps_link">
     <material>Gazebo/White</material>
   </gazebo>
   <!-- FEI-modded barometer module -->
-  <link name="baro_link">
+  <link name="husky_baro_link">
     <inertial>
       <mass value="0.10"/>
       <origin xyz="0 0 0"/>
@@ -480,9 +498,9 @@
       </collision>
 -->
   </link>
-  <joint name="baro_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="baro_link"/>
+  <joint name="husky_baro_joint" type="fixed">
+    <parent link="husky_base_link"/>
+    <child link="husky_baro_link"/>
     <origin rpy="0.0 0.0 0.0" xyz="0.192 -0.05 0.19492492"/>
   </joint>
   <gazebo>
@@ -503,7 +521,7 @@
     <material>Gazebo/Red</material>
   </gazebo>
   <!-- FEI-modded vertical-camera rail -->
-  <link name="base_footprint_fei_cam_rail_part">
+  <link name="husky_base_footprint_fei_cam_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -523,28 +541,28 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_cam_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_cam_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.15 0.0 0.54092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_cam_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_cam_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_cam_rail_part">
+  <gazebo reference="husky_base_footprint_fei_cam_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
-  <!-- FEI-modded 3D sensor -->
-  <joint name="camera_joint" type="fixed">
-    <origin rpy="0.0 0.0 0.0" xyz="-0.151 0.0 0.58092492"/>
-    <parent link="base_link"/>
-    <child link="camera_link"/>
+  <!-- FEI-modded 3D sensor cam_pz: 0.151 works well too, but must change rail -->
+  <joint name="husky_camera_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="-0.151 0.0 0.56592492"/>
+    <parent link="husky_base_link"/>
+    <child link="husky_camera_link"/>
   </joint>
-  <link name="camera_link">
+  <link name="husky_camera_link">
     <inertial>
       <mass value="0.001"/>
-      <origin xyz="0 0 0"/>
+      <origin xyz="0 0 0.0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 1.57079632679" xyz="0 0 0"/>
+      <origin rpy="0 0 1.57079632679" xyz="0 0 0.015"/>
       <geometry>
         <mesh filename="package://husky_fei_description/meshes/sensors/kinect.dae"/>
       </geometry>
@@ -556,55 +574,55 @@
       </geometry>
     </collision>
   </link>
-  <joint name="camera_rgb_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.031 -0.0127 0.016"/>
-    <parent link="camera_link"/>
-    <child link="camera_rgb_frame"/>
+  <joint name="husky_camera_rgb_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.031 -0.0127 0.031"/>
+    <parent link="husky_camera_link"/>
+    <child link="husky_camera_rgb_frame"/>
   </joint>
-  <link name="camera_rgb_frame">
+  <link name="husky_camera_rgb_frame">
     <inertial>
       <mass value="0.001"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
   </link>
-  <joint name="camera_rgb_optical_joint" type="fixed">
+  <joint name="husky_camera_rgb_optical_joint" type="fixed">
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
-    <parent link="camera_rgb_frame"/>
-    <child link="camera_rgb_optical_frame"/>
+    <parent link="husky_camera_rgb_frame"/>
+    <child link="husky_camera_rgb_optical_frame"/>
   </joint>
-  <link name="camera_rgb_optical_frame">
+  <link name="husky_camera_rgb_optical_frame">
     <inertial>
       <mass value="0.001"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
   </link>
-  <joint name="camera_depth_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.031 +0.0127 0.016"/>
-    <parent link="camera_link"/>
-    <child link="camera_depth_frame"/>
+  <joint name="husky_camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.031 +0.0127 0.031"/>
+    <parent link="husky_camera_link"/>
+    <child link="husky_camera_depth_frame"/>
   </joint>
-  <link name="camera_depth_frame">
+  <link name="husky_camera_depth_frame">
     <inertial>
       <mass value="0.001"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
   </link>
-  <joint name="camera_depth_optical_joint" type="fixed">
+  <joint name="husky_camera_depth_optical_joint" type="fixed">
     <origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
-    <parent link="camera_depth_frame"/>
-    <child link="camera_depth_optical_frame"/>
+    <parent link="husky_camera_depth_frame"/>
+    <child link="husky_camera_depth_optical_frame"/>
   </joint>
-  <link name="camera_depth_optical_frame">
+  <link name="husky_camera_depth_optical_frame">
     <inertial>
       <mass value="0.001"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
   </link>
-  <gazebo reference="camera_link">
+  <gazebo reference="camera_depth_frame">
     <sensor name="camera_frame_sensor" type="depth">
       <always_on>true</always_on>
       <update_rate>30.0</update_rate>
@@ -619,7 +637,6 @@
           <near>0.1</near>
           <far>100.0</far>
         </clip>
-        <baseline>0.2</baseline>
       </camera>
       <plugin filename="libgazebo_ros_openni_kinect.so" name="gazebo_ros_camera_controller">
         <cameraName>camera</cameraName>
@@ -630,17 +647,18 @@
         <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
         <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
         <frameName>camera_depth_optical_frame</frameName>
-        <pointCloudCutoff>0.5</pointCloudCutoff>
+        <pointCloudCutoff>0.4</pointCloudCutoff>
         <distortion_k1>0.00000001</distortion_k1>
         <distortion_k2>0.00000001</distortion_k2>
         <distortion_k3>0.00000001</distortion_k3>
         <distortion_t1>0.00000001</distortion_t1>
         <distortion_t2>0.00000001</distortion_t2>
+        <!-- <baseline>0.2</baseline> -->
       </plugin>
     </sensor>
   </gazebo>
   <!-- FEI-modded vertical-stereo-camera rail -->
-  <link name="base_footprint_fei_stereo_rail_part">
+  <link name="husky_base_footprint_fei_stereo_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -660,21 +678,21 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_stereo_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_stereo_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.24 0.0 0.63092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_stereo_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_stereo_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_stereo_rail_part">
+  <gazebo reference="husky_base_footprint_fei_stereo_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- FEI-modded multicamera sensor -->
-  <joint name="stereo_camera_joint" type="fixed">
+  <joint name="husky_stereo_camera_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="-0.24 0.0 0.75092492"/>
-    <parent link="base_link"/>
-    <child link="stereo_camera_link"/>
+    <parent link="husky_base_link"/>
+    <child link="husky_stereo_camera_link"/>
   </joint>
-  <link name="stereo_camera_link">
+  <link name="husky_stereo_camera_link">
     <inertial>
       <mass value="0.01"/>
       <origin xyz="0 0 0"/>
@@ -700,12 +718,12 @@
       </geometry>
     </collision>
   </link>
-  <joint name="left_camera_joint" type="fixed">
+  <joint name="husky_left_camera_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.030 0.031 0"/>
-    <parent link="stereo_camera_link"/>
-    <child link="left_camera_frame"/>
+    <parent link="husky_stereo_camera_link"/>
+    <child link="husky_left_camera_frame"/>
   </joint>
-  <link name="left_camera_frame">
+  <link name="husky_left_camera_frame">
     <inertial>
       <mass value="0.001"/>
       <origin xyz="0 0 0"/>
@@ -719,12 +737,12 @@
       <material name="Black"/>
     </visual>
   </link>
-  <joint name="right_camera_joint" type="fixed">
+  <joint name="husky_right_camera_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.030 -0.031 0"/>
-    <parent link="stereo_camera_link"/>
-    <child link="right_camera_frame"/>
+    <parent link="husky_stereo_camera_link"/>
+    <child link="husky_right_camera_frame"/>
   </joint>
-  <link name="right_camera_frame">
+  <link name="husky_right_camera_frame">
     <inertial>
       <mass value="0.001"/>
       <origin xyz="0 0 0"/>
@@ -806,7 +824,7 @@
   </gazebo>
   <!-- FEI-modded IMU sensor -->
   <!--<sensor_imu name="imu" parent="base" colour="Blue" imu_px="0.192" imu_py="0.0" imu_pz="${0.05 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" imu_or="0.0" imu_op="${M_PI/2.0}" imu_oy="0.0" imu_topic="imu_data" update_rate="100.0" stdev="1.7e-2" /> -->
-  <link name="imu_link">
+  <link name="husky_imu_link">
     <inertial>
       <mass value="0.01"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -828,9 +846,9 @@
       </collision>
 -->
   </link>
-  <joint name="imu_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="imu_link"/>
+  <joint name="husky_imu_joint" type="fixed">
+    <parent link="husky_base_link"/>
+    <child link="husky_imu_link"/>
     <origin rpy="0.0 -1.57079632679 0.0" xyz="0.192 0.0 0.19492492"/>
   </joint>
   <gazebo>
@@ -840,10 +858,8 @@
       <bodyName>imu_link</bodyName>
       <topicName>imu_data</topicName>
       <serviceName>imu_service</serviceName>
-      <rpyOffsets>0 0 0</rpyOffsets>
-      <!-- deprecated -->
+      <rpyOffset>0 0 0</rpyOffset>
       <gaussianNoise>0</gaussianNoise>
-      <!-- deprecated -->
       <accelDrift>0.5 0.5 0.5</accelDrift>
       <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
       <rateDrift>0.1 0.1 0.1</rateDrift>
@@ -856,13 +872,13 @@
     <material>Gazebo/Blue</material>
   </gazebo>
   <!-- FEI-modded Sick LMS100 laser sensor -->
-  <joint name="laser_joint" type="fixed">
+  <joint name="husky_laser_joint" type="fixed">
     <!-- <axis xyz="0 1 0" /> -->
     <origin rpy="0.0 0.0 0" xyz="0.314 0.0 0.28492492"/>
-    <parent link="base_link"/>
-    <child link="laser_link"/>
+    <parent link="husky_base_link"/>
+    <child link="husky_laser_link"/>
   </joint>
-  <link name="laser_link" type="laser">
+  <link name="husky_laser_link" type="laser">
     <inertial>
       <mass value="1.1"/>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
@@ -918,7 +934,7 @@
     </sensor>
   </gazebo>
   <!-- FEI-modded Sick LMS100 support holder -->
-  <link name="base_footprint_lms100_support_part">
+  <link name="husky_base_footprint_lms100_support_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -938,16 +954,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_lms100_support_joint" type="fixed">
+  <joint name="husky_base_footprint_lms100_support_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.314 0.0 0.47992492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_lms100_support_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_lms100_support_part"/>
   </joint>
-  <gazebo reference="base_footprint_lms100_support_part">
+  <gazebo reference="husky_base_footprint_lms100_support_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- FEI-modded Sick LMS100 vertical rails -->
-  <link name="base_footprint_fei_lms100_r_rail_part">
+  <link name="husky_base_footprint_fei_lms100_r_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -967,15 +983,15 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_lms100_r_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_lms100_r_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.242 0.035 0.42092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_lms100_r_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_lms100_r_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_lms100_r_rail_part">
+  <gazebo reference="husky_base_footprint_fei_lms100_r_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
-  <link name="base_footprint_fei_lms100_l_rail_part">
+  <link name="husky_base_footprint_fei_lms100_l_rail_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -995,16 +1011,16 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_fei_lms100_l_rail_joint" type="fixed">
+  <joint name="husky_base_footprint_fei_lms100_l_rail_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.242 -0.035 0.42092492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_fei_lms100_l_rail_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_fei_lms100_l_rail_part"/>
   </joint>
-  <gazebo reference="base_footprint_fei_lms100_l_rail_part">
+  <gazebo reference="husky_base_footprint_fei_lms100_l_rail_part">
     <material>Gazebo/Grey</material>
   </gazebo>
   <!-- Bumpers -->
-  <link name="base_footprint_front_bumper_part">
+  <link name="husky_base_footprint_front_bumper_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -1025,15 +1041,15 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_front_bumper_joint" type="fixed">
+  <joint name="husky_base_footprint_front_bumper_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.49 0.0 0.23592492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_front_bumper_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_front_bumper_part"/>
   </joint>
-  <gazebo reference="base_footprint_front_bumper_part">
+  <gazebo reference="husky_base_footprint_front_bumper_part">
     <material>Gazebo/FlatBlack</material>
   </gazebo>
-  <link name="base_footprint_rear_bumper_part">
+  <link name="husky_base_footprint_rear_bumper_part">
     <inertial>
       <mass value="0.1"/>
       <origin xyz="0.0 0.0 0.0"/>
@@ -1054,22 +1070,22 @@
       </geometry>
     </collision>
   </link>
-  <joint name="base_footprint_rear_bumper_joint" type="fixed">
+  <joint name="husky_base_footprint_rear_bumper_joint" type="fixed">
     <origin rpy="0.0 0.0 3.14" xyz="-0.48 0.0 0.23592492"/>
-    <parent link="base_footprint"/>
-    <child link="base_footprint_rear_bumper_part"/>
+    <parent link="husky_base_footprint"/>
+    <child link="husky_base_footprint_rear_bumper_part"/>
   </joint>
-  <gazebo reference="base_footprint_rear_bumper_part">
+  <gazebo reference="husky_base_footprint_rear_bumper_part">
     <material>Gazebo/FlatBlack</material>
   </gazebo>
   <gazebo>
     <plugin filename="libhusky_fei_gazebo_plugins.so" name="husky_diff_controller">
       <alwaysOn>true</alwaysOn>
       <updateRate>100.0</updateRate>
-      <backLeftJoint>joint_back_left_wheel</backLeftJoint>
-      <backRightJoint>joint_back_right_wheel</backRightJoint>
-      <frontLeftJoint>joint_front_left_wheel</frontLeftJoint>
-      <frontRightJoint>joint_front_right_wheel</frontRightJoint>
+      <backLeftJoint>husky_joint_back_left_wheel</backLeftJoint>
+      <backRightJoint>husky_joint_back_right_wheel</backRightJoint>
+      <frontLeftJoint>husky_joint_front_left_wheel</frontLeftJoint>
+      <frontRightJoint>husky_joint_front_right_wheel</frontRightJoint>
       <wheelSeparation>0.5709</wheelSeparation>
       <wheelDiameter>0.3555</wheelDiameter>
       <torque>35</torque>

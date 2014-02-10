@@ -56,7 +56,7 @@ This program contains the description of the robot wheel model for Clearpath Hus
 
 
 	<xacro:macro name="husky_wheel" params="fb lr parent translateX translateY flipY"> <!--fb : front, back ; lr: left, right -->
-		<link name="${fb}_${lr}_wheel">
+		<link name="$(arg prefix)_${fb}_${lr}_wheel">
 			<inertial>
 				<mass value="${wheel_mass}" />
 				<origin xyz="${wheel_x_com} ${wheel_y_com} ${wheel_z_com}" />
@@ -78,7 +78,7 @@ This program contains the description of the robot wheel model for Clearpath Hus
 			</collision>
 		</link>
 		
-		<gazebo reference="${fb}_${lr}_wheel">
+		<gazebo reference="$(arg prefix)_${fb}_${lr}_wheel">
 			<mu1 value="1.0"/>
 			<mu2 value="1.0"/>
 			<kp  value="10000000.0" />
@@ -88,9 +88,9 @@ This program contains the description of the robot wheel model for Clearpath Hus
 			<turnGravityOff>false</turnGravityOff>
 		</gazebo>
 
-		<joint name="joint_${fb}_${lr}_wheel" type="continuous">
+		<joint name="$(arg prefix)_joint_${fb}_${lr}_wheel" type="continuous">
 			<parent link="${parent}"/>
-			<child link="${fb}_${lr}_wheel"/>
+			<child link="$(arg prefix)_${fb}_${lr}_wheel"/>
 			<origin xyz="${translateX * base_x_origin_to_wheel_origin} ${translateY * base_y_origin_to_wheel_origin} ${base_z_origin_to_wheel_origin}" rpy="0 0 0" /> 
 			<axis xyz="0 1 0" rpy="0 0 0" />
 			<limit effort="100" velocity="100"/>
@@ -98,9 +98,9 @@ This program contains the description of the robot wheel model for Clearpath Hus
 		</joint>
 
 		<!-- Transmission is important to link the joints and the controller -->
-		<transmission name="joint_${fb}_${lr}_wheel_trans" type="SimpleTransmission">
-			<actuator name="joint_${fb}_${lr}_wheel_motor" />
-			<joint name="joint_${fb}_${lr}_wheel" />
+		<transmission name="$(arg prefix)_joint_${fb}_${lr}_wheel_trans" type="SimpleTransmission">
+			<actuator name="$(arg prefix)_joint_${fb}_${lr}_wheel_motor" />
+			<joint name="$(arg prefix)_joint_${fb}_${lr}_wheel" />
 			<mechanicalReduction>1</mechanicalReduction>
 			<motorTorqueConstant>1</motorTorqueConstant>
 		</transmission>

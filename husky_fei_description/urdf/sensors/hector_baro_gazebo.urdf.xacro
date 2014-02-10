@@ -3,13 +3,13 @@
   <xacro:macro name="husky_fei_sim_barosensor" params="name">
     <gazebo>
       <plugin name="hector_gazebo_ros_${name}_controller" filename="libhector_gazebo_ros_baro.so">
-	<alwaysOn>true</alwaysOn>
+        <alwaysOn>true</alwaysOn>
         <updateRate>10.0</updateRate>
-        <bodyName>${name}_link</bodyName>
-	<frameId>${name}_link</frameId>
+        <bodyName>$(arg prefix)_${name}_link</bodyName>
+        <frameId>$(arg prefix)_${name}_link</frameId>
         <topicName>${name}_pressure_height</topicName>
         <altimeterTopicName>${name}_altimeter</altimeterTopicName>
-	<elevation>0.0</elevation>
+        <elevation>0.0</elevation>
         <offset>0</offset>
         <drift>10.0</drift>
         <gaussianNoise>0.1</gaussianNoise>

@@ -3,8 +3,8 @@
 
   <xacro:include filename="$(find husky_fei_description)/urdf/sensors/hector_gps_gazebo.urdf.xacro"/>
  
-  <xacro:macro name="sensor_gps" params="parent name colour gps_px gps_py gps_pz gps_or gps_op gps_oy dimX dimY dimZ">
-    <link name="${name}_link">
+  <xacro:macro name="sensor_gps" params="parent name colour gps_px gps_py gps_pz gps_or gps_op gps_oy dimX dimY dimZ lat_ref lon_ref head_ref">
+    <link name="$(arg prefix)_${name}_link">
       <inertial>
         <mass value="0.10"/>
         <origin xyz="0 0 0"/>
@@ -24,14 +24,18 @@
         </geometry>
       </collision>
     </link>
-    <joint name="${name}_joint" type="fixed">
+    <joint name="$(arg prefix)_${name}_joint" type="fixed">
       <parent link="${parent}"/>
-      <child link="${name}_link"/>
+      <child link="$(arg prefix)_${name}_link"/>
       <origin xyz="${gps_px} ${gps_py} ${gps_pz}" rpy="${gps_or} ${gps_op} ${gps_oy}"/>
     </joint>
 
   <!-- gps sensor for simulation -->
-  <xacro:husky_fei_sim_gpssensor name="${name}" />
+  <xacro:husky_fei_sim_gpssensor 
+      name="${name}" 
+      latitude="${lat_ref}" 
+      longitude="${lon_ref}" 
+      heading="${head_ref}" />
   </xacro:macro>
 
 </robot>

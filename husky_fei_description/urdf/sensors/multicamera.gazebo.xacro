@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="multicamera_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="husky_fei_sim_multicamera" params="name baseline">
-    <gazebo reference="${name}_link">
+    <gazebo reference="$(arg prefix)_${name}_link">
       <sensor type="multicamera" name="${name}">
         <update_rate>60.0</update_rate>
         <camera name="left">
@@ -48,7 +48,7 @@
           <cameraName>${name}</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>${name}_info</cameraInfoTopicName>
-          <frameName>left_camera_frame</frameName>
+          <frameName>$(arg prefix)_left_camera_frame</frameName>
           <hackBaseline>${baseline}</hackBaseline>
           <distortionK1>0.0</distortionK1>
           <distortionK2>0.0</distortionK2>
