@@ -35,7 +35,7 @@
         </ray>
         <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_laser.so">
           <topicName>${name}_data</topicName>
-          <frameName>${name}_link</frameName>
+          <frameName>$(arg prefix)_${name}_link</frameName>
         </plugin>
       </sensor>
     </gazebo>
