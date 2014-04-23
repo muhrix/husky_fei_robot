@@ -224,7 +224,10 @@
     </gazebo>
 
     <!-- FEI-modded Sick LMS100 laser sensor -->
+    <!--
     <sick_lms100_laser name="laser" parent="$(arg prefix)_base_link" laser_px="0.314" laser_py="0.0" laser_pz="${0.14 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" laser_or="0.0" laser_op="0.0" laser_oy="0" />
+    -->
+    <sick_lms100_laser name="laser" parent="$(arg prefix)_base_link" laser_px="0.314" laser_py="0.0" laser_pz="${0.14 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" laser_or="${M_PI}" laser_op="0.0" laser_oy="0" />
 
     <!-- FEI-modded Sick LMS100 support holder -->
     <husky_rail_mods parent="$(arg prefix)_base_footprint" name="lms100_support" mesh="sensors/LMS100_support_holder" colour="DarkGrey" translateX="0.314" translateY="0.0" translateZ="${0.335 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
