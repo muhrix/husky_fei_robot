@@ -14,6 +14,7 @@ class Teleop:
         self.drive_scale = rospy.get_param('~drive_scale')
         self.deadman_button = rospy.get_param('~deadman_button', 0)
         self.planner_button = rospy.get_param('~planner_button', 1)
+        self.speedup_button = rospy.get_param('~speedup_button', 2)
 
         self.cmd = None
         self.joy = Joy()
@@ -46,6 +47,10 @@ class Teleop:
         cmd = Twist()
         cmd.linear.x = data.axes[1] * self.drive_scale
         cmd.angular.z = data.axes[0] * self.turn_scale
+        
+        if data.buttons[self.speedup_button] == 0:
+            cmd.linear.x = cmd.linear.x * 0.6
+            cmd.angular.z = cmd.angular.z * 0.6
 
         if data.buttons[self.deadman_button] == 1:
             self.cmd = cmd
