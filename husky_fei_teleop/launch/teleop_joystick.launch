@@ -4,6 +4,7 @@
   <arg name="drive_speed" default="1.0" />
   <arg name="turn_speed" default="1.0" />
   <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="hz" default="10" />
   <!-- <arg name="cmd_topic" default="husky_fei/cmd_vel" /> -->
 
   <!-- <group ns="$(arg name)"> -->
@@ -15,6 +16,7 @@
     <node pkg="husky_fei_teleop" type="joystick_teleop" name="joystick_teleop" output="screen">
       <param name="turn_scale" value="$(arg turn_speed)" />
       <param name="drive_scale" value="$(arg drive_speed)" />
+      <param name="hz" value="$(arg hz)" />
       <!-- <remap from="cmd_vel" to="$(arg cmd_topic)/cmd_vel" /> -->
     </node>
   <!-- </group> -->
