@@ -13,7 +13,7 @@
     <!-- <xacro:include filename="$(find husky_fei_description)/urdf/sensors/microstrain_3dmgx2_imu.urdf.xacro" /> -->
     
 	<!-- PROPERTY LIST -->
-    <!--All units in m-kg-s-radians unit system -->
+    <!--All units in m-kg-s-radians unit system -->w
     <property name="M_PI" value="3.1415926535897931" />
 
     <!-- Main Body-base-->
@@ -167,9 +167,9 @@
           gps_op="0.0" 
           gps_oy="${M_PI}" 
           dimX="0.16" dimY="0.16" dimZ="0.14"
-          lat_ref="37.316357"
-          lon_ref="141.026065"
-          head_ref="90" />
+          lat_ref="$(arg lat)"
+          lon_ref="$(arg lon)"
+          head_ref="$(arg head)" />
     <gazebo reference="$(arg prefix)_gps_link">
         <material>Gazebo/White</material>
     </gazebo>
