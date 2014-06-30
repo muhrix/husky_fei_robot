@@ -1,12 +1,18 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot_name" default="husky"/>
+  <arg name="lat_ref" default="-22.951880"/>
+  <arg name="lon_ref" default="-43.211428"/>
 
-  <!-- Send Husky A200 Robot URDF/XACRO to param server -->
-  <param name="robot_description" 
+  <!-- Send the Husky A200 Robot URDF/XACRO to param server -->
+  <param name="robot_description"
          command="$(find xacro)/xacro.py 
                   '$(find husky_fei_description)/urdf/husky_fei.urdf.xacro'
-                  prefix:=$(arg robot_name)"/>
+                  prefix:=$(arg robot_name)
+                  lat:=$(arg lat_ref)
+                  lon:=$(arg lon_ref)
+                  head:=0.0"/>
+                  
   <!-- Publish state and tf  -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
     <param name="publish_frequency" type="double" value="10.0"/>
