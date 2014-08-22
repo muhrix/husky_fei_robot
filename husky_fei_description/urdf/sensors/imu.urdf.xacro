@@ -32,8 +32,8 @@
       <origin xyz="${imu_px} ${imu_py} ${imu_pz}" rpy="${imu_or} ${imu_op} ${imu_oy}"/>
     </joint>
 
-  <!-- IMU sensor for simulation -->
-  <xacro:husky_fei_sim_imusensor name="${name}" />
+    <!-- IMU sensor for simulation -->
+    <xacro:husky_fei_sim_imusensor name="${name}" />
   </xacro:macro>
 
 </robot>
