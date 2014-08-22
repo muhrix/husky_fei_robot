@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
-<robot name="imusensor_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+<!-- <robot name="imusensor_gazebo" xmlns:xacro="http://ros.org/wiki/xacro"> -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="husky_fei_sim_imusensor" params="name">
     <gazebo>
       <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_imu.so">
-	<always_on>true</always_on>
+        <always_on>true</always_on>
         <update_rate>100.0</update_rate>
         <bodyName>$(arg prefix)_${name}_link</bodyName>
-        <topicName>${name}_data</topicName>
+        <topicName>${name}</topicName>
         <serviceName>${name}_service</serviceName>
         <rpyOffset>0 0 0</rpyOffset> 
         <gaussianNoise>0</gaussianNoise>
@@ -16,7 +17,7 @@
         <rateGaussianNoise>0.05 0.05 0.015</rateGaussianNoise>
         <headingDrift>0.1</headingDrift>
         <headingGaussianNoise>0.05</headingGaussianNoise>
-      </plugin>
+      </plugin>  
     </gazebo>
   </xacro:macro>
 </robot>
