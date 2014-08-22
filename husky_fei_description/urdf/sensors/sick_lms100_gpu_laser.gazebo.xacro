@@ -34,7 +34,7 @@
           </noise>
         </ray>
         <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_gpu_laser.so">
-          <topicName>${name}_data</topicName>
+          <topicName>scan</topicName>
           <frameName>$(arg prefix)_${name}_link</frameName>
         </plugin>
       </sensor>
