@@ -149,7 +149,7 @@
     </gazebo>
 
     <!-- FEI-modded vertical-GPS rail -->
-    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_gps_rail" mesh="tslot_200x20x20"
+    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_gps_rail" mesh="tslot_200x20x20.dae"
           colour="DarkGrey"
           translateX="-0.15" translateY="0.18" translateZ="${0.101 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.2" />
@@ -184,7 +184,7 @@
     </gazebo>
 
     <!-- FEI-modded vertical-camera rail -->
-    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_cam_rail" mesh="tslot_300x20x20"
+    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_cam_rail" mesh="tslot_300x20x20.dae"
           colour="DarkGrey"
           translateX="-0.15" translateY="0.0" translateZ="${0.151 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.3" />
@@ -196,7 +196,7 @@
     <sensor_kinect name="camera" parent="$(arg prefix)_base_link" cam_px="-0.151" cam_py="0.0" cam_pz="${0.191 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" cam_or="0.0" cam_op="0.0" cam_oy="0.0" />
 
     <!-- FEI-modded vertical-stereo-camera rail -->
-    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_stereo_rail" mesh="tslot_500x20x20"
+    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_stereo_rail" mesh="tslot_500x20x20.dae"
           colour="DarkGrey"
           translateX="-0.24" translateY="0.0" translateZ="${0.241 + 0.245 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.5" />
@@ -230,21 +230,21 @@
     <sick_lms100_laser name="laser" parent="$(arg prefix)_base_link" laser_px="0.314" laser_py="0.0" laser_pz="${0.14 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" laser_or="${M_PI}" laser_op="0.0" laser_oy="0" />
 
     <!-- FEI-modded Sick LMS100 support holder -->
-    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="lms100_support" mesh="sensors/LMS100_support_holder" colour="DarkGrey" translateX="0.314" translateY="0.0" translateZ="${0.335 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
+    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="lms100_support" mesh="sensors/LMS100_support_holder.dae" colour="DarkGrey" translateX="0.314" translateY="0.0" translateZ="${0.335 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.1" />
     <gazebo reference="$(arg prefix)_base_footprint_lms100_support_part">
         <material>Gazebo/Grey</material>
     </gazebo>
 
     <!-- FEI-modded Sick LMS100 vertical rails -->
-    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_lms100_r_rail" mesh="tslot_100x20x20"
+    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_lms100_r_rail" mesh="tslot_100x20x20.dae"
           colour="DarkGrey"
           translateX="0.242" translateY="0.035" translateZ="${0.276 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.1" />
     <gazebo reference="$(arg prefix)_base_footprint_fei_lms100_r_rail_part">
         <material>Gazebo/Grey</material>
     </gazebo>
-    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_lms100_l_rail" mesh="tslot_100x20x20"
+    <husky_rail_mods parent="$(arg prefix)_base_footprint" name="fei_lms100_l_rail" mesh="tslot_100x20x20.dae"
           colour="DarkGrey"
           translateX="0.242" translateY="-0.035" translateZ="${0.276 + wheel_x_size/2 - base_z_origin_to_wheel_origin}" 
           rotateX="0.0" rotateY="0.0" rotateZ="0.0" dimX="0.02" dimY="0.02" dimZ="0.1" />
