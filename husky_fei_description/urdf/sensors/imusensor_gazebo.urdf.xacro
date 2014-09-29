@@ -43,7 +43,7 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>100.0</updateRate>
           <bodyName>imu_link</bodyName>
-          <topicName>imu_data</topicName>
+          <topicName>imu</topicName>
           <serviceName>imu_service</serviceName>
         </plugin>
       </sensor>
