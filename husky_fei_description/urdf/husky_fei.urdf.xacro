@@ -13,7 +13,7 @@
     <!-- <xacro:include filename="$(find husky_fei_description)/urdf/sensors/microstrain_3dmgx2_imu.urdf.xacro" /> -->
     
 	<!-- PROPERTY LIST -->
-    <!--All units in m-kg-s-radians unit system -->w
+    <!--All units in m-kg-s-radians unit system -->
     <property name="M_PI" value="3.1415926535897931" />
 
     <!-- Main Body-base-->
